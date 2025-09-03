@@ -1,0 +1,18 @@
+import os
+import shutil
+
+files = os.listdir("/users/joaquin/Downloads")
+download_path = "/users/joaquin/Downloads/"
+
+# Saves directories for all folders
+directories = {}
+
+for file in files:
+    # Checks if it has an extension or not, if yes then it is a file, if not assume directory
+    if not os.path.isfile(download_path + file) or file.startswith("."):
+        continue
+    extension = file[file.index(".") + 1 :].lower()
+
+    directories[extension] = download_path + extension
+    os.makedirs(directories[extension], exist_ok=True)
+    shutil.move("/users/joaquin/Downloads/" + file, directories[extension])
